@@ -1,0 +1,19 @@
+<div id="login-wrapper">
+    <div id="form-wrapper">
+        <div class="imgcontainer">
+            <img src="/assets/images/common/logo.jpg" alt="Logo" class="avatar">
+        </div>
+
+        <div id="site-title">IOT WASTE MANAGEMENT SYSTEM</div>
+
+        <div class="container">
+            <label>Username</label>
+            <input type="text" placeholder="Enter Username" name="uname" [(ngModel)]="username">
+            <label>Password</label>
+            <input type="password" placeholder="Enter Password" name="psw" [(ngModel)]="password">
+
+            <button type="submit" (click)="login()" [disabled]="!(username.length && password.length)">Login</button>
+            <input type="checkbox" checked="checked"> Remember me
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+.body-wrapper {
+  height: calc(100vh - 9vh - 3vh);
+  &.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  app-side-nav {
+    height: calc(100vh - 9vh - 3vh);
+    width: 17.5%;
+    float: left;
+  }
+
+  app-content {
+    height: calc(100vh - 9vh - 3vh);
+    width: 82.5%;
+    float: left;
+  }
+}

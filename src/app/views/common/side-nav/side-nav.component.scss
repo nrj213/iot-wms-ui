@@ -1,0 +1,27 @@
+div#menu-wrapper {
+  //padding: 1rem 0;
+  // box-shadow: 0px 2px 2px #888888;
+  border-right: 1px solid #8888884a;
+  height: 100%;
+
+  .menu-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid #dadce0;
+    padding-left: 0.75rem;
+    border-right: 5px solid transparent;
+    cursor: pointer;
+
+    // &:last-of-type {
+    //   border-bottom: 0;
+    // }
+
+    &.selected {
+      border-right-color: #4caf50cf;
+    }
+
+    &:hover {
+      border-right-color: #4caf50cf;
+      font-weight: 400;
+    }
+  }
+}
