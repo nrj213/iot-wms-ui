@@ -3,7 +3,7 @@
 
     <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.lat"
         [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable" (dragEnd)="markerDragEnd(m, $event)"
-        [iconUrl]="m.iconUrl">
+        [iconUrl]="buildIconUrl(m.level)">
 
         <agm-info-window>
             <strong>InfoWindow content</strong>
@@ -12,7 +12,7 @@
 
     </agm-marker>
 
-    <agm-circle [latitude]="lat + 0.3" [longitude]="lng" [radius]="5000" [fillColor]="'red'" [circleDraggable]="true"
+    <agm-circle [latitude]=" lat + 0.3" [longitude]="lng" [radius]="5000" [fillColor]="'red'" [circleDraggable]="true"
         [editable]="true">
     </agm-circle>
 

@@ -1,16 +1,17 @@
 import { Component, OnInit } from "@angular/core";
+import { Constants } from "@app/utils";
 
 // just an interface for type safety.
 interface marker {
   id: number;
   lat: number;
   lng: number;
+  level: number;
   area: string;
   staffName: string;
   staffMobileNo: string;
   label?: string;
   draggable: boolean;
-  iconUrl?: string;
 }
 
 @Component({
@@ -46,39 +47,53 @@ export class MapComponent implements OnInit {
     console.log("dragEnd", m, $event);
   }
 
+  buildIconUrl(status: number) {
+    const baseUrl: string = Constants.IMG_BASE_URL;
+
+    if (status > Constants.MEDIUM_THRESHOLD) {
+      return baseUrl + "/bin/bin-high.png";
+    }
+
+    if (status > Constants.LOW_THRESHOLD) {
+      return baseUrl + "/bin/bin-medium.png";
+    }
+
+    return baseUrl + "/bin/bin-low.png";
+  }
+
   markers: marker[] = [
     {
       id: 1,
       lat: 8.431363,
       lng: 76.981965,
+      level: 91,
       area: "Kola",
       staffName: "Kumar",
       staffMobileNo: "8891906510",
       label: "",
-      draggable: true,
-      iconUrl: "/assets/images/bin/bin-low.png"
+      draggable: true
     },
     {
       id: 2,
       lat: 8.431363,
       lng: 76.983965,
+      level: 30,
       area: "Kola",
       staffName: "Kumar",
       staffMobileNo: "8891906510",
       label: "",
-      draggable: false,
-      iconUrl: "/assets/images/bin/bin-high.png"
+      draggable: false
     },
     {
       id: 3,
       lat: 8.431363,
       lng: 76.987965,
+      level: 60,
       area: "Kola",
       staffName: "Kumar",
       staffMobileNo: "8891906510",
       label: "",
-      draggable: true,
-      iconUrl: "/assets/images/bin/bin-medium.png"
+      draggable: true
     }
   ];
 }
