@@ -1,18 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { Constants } from "@app/utils";
-
-// just an interface for type safety.
-interface marker {
-  id: number;
-  lat: number;
-  lng: number;
-  level: number;
-  area: string;
-  staffName: string;
-  staffMobileNo: string;
-  label?: string;
-  draggable: boolean;
-}
+import { Bin } from '../common/bin.model';
 
 @Component({
   selector: "app-map",
@@ -20,31 +8,22 @@ interface marker {
   styleUrls: ["./map.component.scss"]
 })
 export class MapComponent implements OnInit {
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  // Dustbin data to be shown on map
+  @Input('binData') markers: Bin[];
 
   // google maps zoom level
-  zoom: number = 16;
+  @Input() zoom: number;
 
   // initial center position for the map
-  lat: number = 8.431363;
-  lng: number = 76.981965;
+  @Input('latitude') lat: number;
+  @Input('longitude') lng: number;
 
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`);
-  }
-
-  // mapClicked($event: MouseEvent) {
-  //   this.markers.push({
-  //     lat: $event["coords"]["lat"],
-  //     lng: $event["coords"]["lng"],
-  //     draggable: true
-  //   });
-  // }
-
-  markerDragEnd(m: marker, $event: MouseEvent) {
-    console.log("dragEnd", m, $event);
   }
 
   buildIconUrl(status: number) {
@@ -60,40 +39,4 @@ export class MapComponent implements OnInit {
 
     return baseUrl + "/bin/bin-low.png";
   }
-
-  markers: marker[] = [
-    {
-      id: 1,
-      lat: 8.431363,
-      lng: 76.981965,
-      level: 91,
-      area: "Kola",
-      staffName: "Kumar",
-      staffMobileNo: "8891906510",
-      label: "",
-      draggable: true
-    },
-    {
-      id: 2,
-      lat: 8.431363,
-      lng: 76.983965,
-      level: 30,
-      area: "Kola",
-      staffName: "Kumar",
-      staffMobileNo: "8891906510",
-      label: "",
-      draggable: false
-    },
-    {
-      id: 3,
-      lat: 8.431363,
-      lng: 76.987965,
-      level: 60,
-      area: "Kola",
-      staffName: "Kumar",
-      staffMobileNo: "8891906510",
-      label: "",
-      draggable: true
-    }
-  ];
 }

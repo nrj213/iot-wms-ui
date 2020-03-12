@@ -3,4 +3,6 @@ export class Constants {
   static MEDIUM_THRESHOLD: number = 90;
 
   static IMG_BASE_URL = "/assets/images/";
+
+  static BIN_DATA_ENDPOINT = "/bin"
 }

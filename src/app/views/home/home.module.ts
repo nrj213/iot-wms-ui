@@ -9,6 +9,7 @@ import { FooterComponent } from "../common/footer/footer.component";
 import { ContentComponent } from "../common/content/content.component";
 import { MapComponent } from "../map/map.component";
 import { HomeRoutingModule } from "./home-routing.module";
+import { FullMapComponent } from './full-map/full-map.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HomeRoutingModule } from "./home-routing.module";
     FooterComponent,
     ContentComponent,
     HomeComponent,
-    MapComponent
+    MapComponent,
+    FullMapComponent
   ],
   imports: [
     CommonModule,

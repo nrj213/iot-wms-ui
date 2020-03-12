@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./home.component";
 import { MapComponent } from "../map/map.component";
+import { FullMapComponent } from './full-map/full-map.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: MapComponent
+        component: FullMapComponent
       }
     ]
   }
