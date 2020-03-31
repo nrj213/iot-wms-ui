@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  hostAddress: "http://localhost:3000/wms"
+  hostAddress: "http://localhost:8080/wms"
 };
 
 /*

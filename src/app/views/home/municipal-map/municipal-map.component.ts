@@ -8,26 +8,32 @@ import { getCenter } from 'geolib';
 import { Municipality } from '@app/views/common/models/municipality.model';
 
 @Component({
-  selector: 'app-full-map',
-  templateUrl: './full-map.component.html',
-  styleUrls: ['./full-map.component.scss']
+  selector: 'app-municipal-map',
+  templateUrl: './municipal-map.component.html',
+  styleUrls: ['./municipal-map.component.scss']
 })
-export class FullMapComponent implements OnInit {
+export class MunicipalMapComponent implements OnInit {
   binData: Bin[];
   zoom: number;
   centralLatitude: number;
   centralLongitude: number;
 
+  municipalityList: Municipality[];
+  municipalitySelection: number;
+
   constructor(private httpService: HttpService) {
-    this.zoom = 8;
+    this.zoom = 12;
   }
 
   ngOnInit() {
-    this.getBinData();
+    this.municipalitySelection = 2;
+
+    this.getMunicipalityData();
+    this.getBinData(this.municipalitySelection);
   }
 
-  getBinData() {
-    let url = Constants.BIN_ENDPOINT;
+  getBinData(municipalityId: number) {
+    let url = Constants.BIN_ENDPOINT + "/" + municipalityId;
 
     this.httpService.get(url).subscribe((response: any) => {
       if (!isNullOrUndefined(response.code) && response.code == 0) {
@@ -47,6 +53,26 @@ export class FullMapComponent implements OnInit {
     }, (error: HttpErrorResponse) => {
       console.log(error);
     })
+  }
+
+  getMunicipalityData() {
+    let url = Constants.MUNICIPALITY_ENDPOINT;
+
+    this.httpService.get(url).subscribe((response: any) => {
+      if (!isNullOrUndefined(response.code) && response.code == 0) {
+        this.municipalityList = response.data;
+      } else {
+        alert(response.code + " : " + response.message);
+      }
+    }, (error: HttpErrorResponse) => {
+      console.log(error);
+    })
+  }
+
+  onMunicipalityChange() {
+    if (!isNaN(this.municipalitySelection)) {
+      this.getBinData(this.municipalitySelection)
+    }
   }
 
 }

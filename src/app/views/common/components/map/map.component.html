@@ -1,0 +1,19 @@
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true">
+
+    <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.latitude"
+        [longitude]="m.longitude" [iconUrl]="buildIconUrl(m.level)">
+
+        <agm-info-window>
+            <strong>Bin Info</strong>
+            <div>ID: {{m.id}}</div>
+            <div>Area: {{m.area}}</div>
+            <div>Level: {{m.level}}</div>
+        </agm-info-window>
+
+    </agm-marker>
+
+    <!-- <agm-circle [latitude]=" lat + 0.3" [longitude]="lng" [radius]="5000" [fillColor]="'red'" [circleDraggable]="true"
+        [editable]="true">
+    </agm-circle> -->
+
+</agm-map>

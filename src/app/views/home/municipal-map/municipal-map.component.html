@@ -1,0 +1,10 @@
+<mat-form-field class="mat-dropdown">
+    <mat-label>Municipality</mat-label> 
+    <mat-select (selectionChange)="onMunicipalityChange()" [(value)]="municipalitySelection">
+        <mat-option *ngFor="let municipality of municipalityList" [value]="municipality.id">
+            {{municipality.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<app-map [binData]="binData" [zoom]="zoom" [latitude]="centralLatitude" [longitude]="centralLongitude"></app-map>

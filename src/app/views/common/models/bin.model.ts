@@ -2,8 +2,8 @@ export interface Bin {
     id: number;
     municipality: string;
     area: string;
-    lat: number;
-    lng: number;
+    latitude: number;
+    longitude: number;
     level: number;
     staffName: string;
     staffMobileNo: string;

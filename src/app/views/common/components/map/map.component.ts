@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Constants } from "@app/utils";
-import { Bin } from '../common/bin.model';
+import { Bin } from '../../models/bin.model';
 
 @Component({
   selector: "app-map",

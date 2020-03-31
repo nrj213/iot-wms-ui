@@ -1,8 +1,9 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { HomeComponent } from "./home.component";
-import { MapComponent } from "../map/map.component";
 import { FullMapComponent } from './full-map/full-map.component';
+import { AreaMapComponent } from './area-map/area-map.component';
+import { MunicipalMapComponent } from './municipal-map/municipal-map.component';
 
 const routes: Routes = [
   {
@@ -11,7 +12,19 @@ const routes: Routes = [
     children: [
       {
         path: "",
+        redirectTo: "area"
+      },
+      {
+        path: "admin",
         component: FullMapComponent
+      },
+      {
+        path: "municipal",
+        component: MunicipalMapComponent
+      },
+      {
+        path: "area",
+        component: AreaMapComponent
       }
     ]
   }

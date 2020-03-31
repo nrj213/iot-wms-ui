@@ -8,6 +8,7 @@ import { LoginComponent } from "./views/login/login.component";
 import { SharedModule } from '@app/shared';
 import { CoreModule } from '@app/core';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     HttpClientModule,
     SharedModule.forRoot(),
-    CoreModule
+    CoreModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

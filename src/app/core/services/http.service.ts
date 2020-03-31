@@ -10,20 +10,20 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  get(url): Observable<HttpResponse<Object>> {
-    return this.http.get<HttpResponse<Object>>(this.hostAddress + url)
+  get(url: string, options?: object): Observable<HttpResponse<Object>> {
+    return this.http.get<HttpResponse<Object>>(this.hostAddress + url, options)
   }
 
-  post(url, payload): Observable<HttpResponse<Object>> {
-    return this.http.post<HttpResponse<Object>>(this.hostAddress + url, payload)
+  post(url, payload, options?: object): Observable<HttpResponse<Object>> {
+    return this.http.post<HttpResponse<Object>>(this.hostAddress + url, payload, options)
   }
 
-  put(url, payload): Observable<HttpResponse<Object>> {
-    return this.http.put<HttpResponse<Object>>(this.hostAddress + url, payload)
+  put(url, payload, options?: object): Observable<HttpResponse<Object>> {
+    return this.http.put<HttpResponse<Object>>(this.hostAddress + url, payload, options)
   }
 
-  delete(url): Observable<HttpResponse<Object>> {
-    return this.http.delete<HttpResponse<Object>>(this.hostAddress + url)
+  delete(url, options?: object): Observable<HttpResponse<Object>> {
+    return this.http.delete<HttpResponse<Object>>(this.hostAddress + url, options)
   }
 
 }
