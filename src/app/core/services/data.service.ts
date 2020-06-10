@@ -11,20 +11,21 @@ export class DataService {
     //     this.toggleEvent.emit();
     // }
 
-    private userDetails = new BehaviorSubject<User>({
+    currentUserDetailsSubject = new BehaviorSubject<User>({
         name: null,
         statusId: null,
         roleId: null,
         roleName: null,
         areaId: null
     });
-    currentUserDetails = this.userDetails.asObservable();
+    
+    currentUserDetails = this.currentUserDetailsSubject.asObservable();
 
     // private userRoles = new BehaviorSubject({});
     // currentUserRoles = this.userRoles.asObservable();
 
     passUserDetails(details: User) {
-        this.userDetails.next(details);
+        this.currentUserDetailsSubject.next(details);
     }
 
     // passUserRoles(data: Object) {

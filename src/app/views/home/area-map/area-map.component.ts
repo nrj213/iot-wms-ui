@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Bin } from '@app/views/common/models/bin.model';
-import { HttpService } from '@app/core';
+import { HttpService, DataService } from '@app/core';
 import { Constants } from '@app/utils';
 import { isNullOrUndefined } from 'util';
 import { HttpErrorResponse } from '@angular/common/http';
 import { getCenter } from 'geolib';
 import { Area } from '@app/views/common/models/area.model';
+import { Municipality } from '@app/views/common/models/municipality.model';
 
 @Component({
   selector: 'app-area-map',
@@ -20,17 +21,32 @@ export class AreaMapComponent implements OnInit {
   centralLongitude: number;
 
   areaList: Area[];
+  municipalityList: Municipality[];
+  
   areaSelection: number;
   municipalitySelection: number;
 
-  constructor(private httpService: HttpService) {
+  roleId: number;
+
+  constructor(private httpService: HttpService, private dataService: DataService) {
     this.zoom = 15;
   }
 
   ngOnInit() {
-    this.municipalitySelection = 1;
-    this.areaSelection = 1;
+    this.roleId = this.dataService.currentUserDetailsSubject.getValue().roleId;
 
+    let municipalityId = this.dataService.currentUserDetailsSubject.getValue().municipalityId;
+    let areaId = this.dataService.currentUserDetailsSubject.getValue().areaId;
+
+    if (municipalityId) {
+      this.municipalitySelection = municipalityId;
+    }
+
+    if(areaId) {
+      this.areaSelection = areaId;
+    }
+
+    this.getMunicipalityData();
     this.getAreaData(this.municipalitySelection);
     this.getBinData(this.municipalitySelection, this.areaSelection)
   }
@@ -75,6 +91,26 @@ export class AreaMapComponent implements OnInit {
   onAreaChange() {
     if (!isNaN(this.areaSelection)) {
       this.getBinData(this.municipalitySelection, this.areaSelection)
+    }
+  }
+
+  getMunicipalityData() {
+    let url = Constants.MUNICIPALITY_ENDPOINT;
+
+    this.httpService.get(url).subscribe((response: any) => {
+      if (!isNullOrUndefined(response.code) && response.code == 0) {
+        this.municipalityList = response.data;
+      } else {
+        alert(response.code + " : " + response.message);
+      }
+    }, (error: HttpErrorResponse) => {
+      console.log(error);
+    })
+  }
+
+  onMunicipalityChange() {
+    if (!isNaN(this.municipalitySelection)) {
+      this.getAreaData(this.municipalitySelection);
     }
   }
 

@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from '@app/core';
+import { HttpService, DataService } from '@app/core';
 import { Constants } from '@app/utils';
 import { Bin } from '@app/views/common/models/bin.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { isNullOrUndefined } from 'util';
 import { getCenter } from 'geolib';
 import { Municipality } from '@app/views/common/models/municipality.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-municipal-map',
@@ -21,12 +22,20 @@ export class MunicipalMapComponent implements OnInit {
   municipalityList: Municipality[];
   municipalitySelection: number;
 
-  constructor(private httpService: HttpService) {
+  roleId: number;
+
+  constructor(private httpService: HttpService, private route: ActivatedRoute, private dataService: DataService) {
     this.zoom = 12;
   }
 
   ngOnInit() {
-    this.municipalitySelection = 2;
+    this.roleId = this.dataService.currentUserDetailsSubject.getValue().roleId;
+
+    let municipalityId = this.dataService.currentUserDetailsSubject.getValue().municipalityId;
+
+    if (municipalityId) {
+      this.municipalitySelection = municipalityId;
+    }
 
     this.getMunicipalityData();
     this.getBinData(this.municipalitySelection);

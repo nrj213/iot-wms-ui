@@ -1,6 +1,15 @@
 <mat-form-field class="mat-dropdown">
+    <mat-label>Municipality</mat-label> 
+    <mat-select (selectionChange)="onMunicipalityChange()" [(value)]="municipalitySelection" [disabled]="roleId != 1">
+        <mat-option *ngFor="let municipality of municipalityList" [value]="municipality.id">
+            {{municipality.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field class="mat-dropdown area-dropdown">
     <mat-label>Area</mat-label> 
-    <mat-select (selectionChange)="onAreaChange()" [(value)]="areaSelection">
+    <mat-select (selectionChange)="onAreaChange()" [(value)]="areaSelection" [disabled]="roleId == 3">
         <mat-option *ngFor="let area of areaList" [value]="area.id">
             {{area.name}}
         </mat-option>

@@ -12,4 +12,6 @@ export class Constants {
   static BIN_ENDPOINT = "/bins"
   static MUNICIPALITY_ENDPOINT = "/municipalities"
   static AREA_ENDPOINT = "/areas"
+
+  static MUNICIPALITY_ID = "municipalityId"
 }

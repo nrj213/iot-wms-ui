@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '@app/core';
 
 @Component({
   selector: 'app-side-nav',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
+
+  roleId: number;
 
   ngOnInit() {
+    this.dataService.currentUserDetails.subscribe(data => this.roleId = data.roleId);
   }
 
 }

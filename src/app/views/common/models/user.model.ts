@@ -4,4 +4,5 @@ export interface User {
     roleId: number;
     roleName: string;
     areaId: number;
+    municipalityId?: number
   }

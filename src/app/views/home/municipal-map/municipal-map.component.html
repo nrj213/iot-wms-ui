@@ -1,6 +1,6 @@
 <mat-form-field class="mat-dropdown">
     <mat-label>Municipality</mat-label> 
-    <mat-select (selectionChange)="onMunicipalityChange()" [(value)]="municipalitySelection">
+    <mat-select (selectionChange)="onMunicipalityChange()" [(value)]="municipalitySelection" [disabled]="roleId != 1">
         <mat-option *ngFor="let municipality of municipalityList" [value]="municipality.id">
             {{municipality.name}}
         </mat-option>

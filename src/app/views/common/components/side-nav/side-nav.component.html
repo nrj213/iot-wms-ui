@@ -1,6 +1,6 @@
 <div id="menu-wrapper">
-    <div class="menu-item" routerLink="/wms/admin" routerLinkActive="selected">&gt; Admin View</div>
-    <div class="menu-item" routerLink="/wms/municipal" routerLinkActive="selected">&gt; Municipal View</div>
-    <div class="menu-item" routerLink="/wms/area" routerLinkActive="selected">&gt; Area View</div>
+    <div class="menu-item" routerLink="/wms/admin" routerLinkActive="selected" *ngIf="roleId == 1">&gt; Admin View</div>
+    <div class="menu-item" routerLink="/wms/municipal" routerLinkActive="selected" *ngIf="roleId == 1 || roleId == 2">&gt; Municipal View</div>
+    <div class="menu-item" routerLink="/wms/area" routerLinkActive="selected" *ngIf="roleId == 1 || roleId == 2 || roleId == 3">&gt; Area View</div>
     <div class="menu-item">&gt; Search</div>
 </div>

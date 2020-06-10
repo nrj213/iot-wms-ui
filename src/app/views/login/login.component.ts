@@ -4,6 +4,7 @@ import { HttpService, DataService } from '@app/core';
 import { Constants } from '@app/utils';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { isNullOrUndefined } from 'util';
+import { User } from '../common/models/user.model';
 
 @Component({
   selector: "app-login",
@@ -25,8 +26,26 @@ export class LoginComponent implements OnInit {
 
       this.httpService.get(url, { headers }).subscribe((response: any) => {
         if (!isNullOrUndefined(response.code) && response.code == 0) {
-          this.dataService.passUserDetails(response.data);
-          this.router.navigateByUrl("/wms/municipal");
+          let userData: User = response.data;
+          let areaId: number = userData.areaId;
+
+          this.getMunicipalityId(areaId).then((municipalityId: number) => {
+            userData = {
+              ...userData,
+              municipalityId
+            }
+            this.dataService.passUserDetails(userData);
+
+            let roleId = userData.roleId;
+
+            if (roleId == 1) {
+              this.router.navigateByUrl("/wms/admin");
+            } else if (roleId == 2) {
+              this.router.navigateByUrl("/wms/municipal");
+            } else {
+              this.router.navigateByUrl("/wms/area");
+            }
+          });
         } else {
           alert("Login failed!")
         }
@@ -36,5 +55,24 @@ export class LoginComponent implements OnInit {
     } else {
       alert("Enter username and password!");
     }
+  }
+
+  getMunicipalityId(areaId: number) {
+    let url = Constants.MUNICIPALITY_ENDPOINT + "/" + areaId;
+
+    return new Promise((resolve, reject) => {
+      this.httpService.get(url).subscribe((response: any) => {
+        if (!isNullOrUndefined(response.code) && response.code == 0) {
+          if (response && response.data.length && response.data[0].municipalityId) {
+            resolve(response.data[0].municipalityId);
+          } else {
+            reject(null);
+          }
+        }
+      }, (error: HttpErrorResponse) => {
+        reject(null);
+        console.log(error);
+      });
+    });
   }
 }
