@@ -12,9 +12,13 @@
   div#logo {
     width: 8rem;
     height: 8vh;
-    background-size: 100% 100%;
+    background-size: 100%;
     background-repeat: no-repeat;
     float: left;
+  }
+
+  .logo {
+    width: 6rem;
   }
 
   div#site-name {
@@ -32,7 +36,7 @@
 
     span#intials {
       display: inline-block;
-      padding: 16px;
+      padding: 11px;
       font-size: 1.2rem;
       font-weight: 300;
       background-color: #4caf5078;

@@ -1,11 +1,12 @@
 .mat-dropdown {
-    position: absolute;
+    float: left;
     z-index: 1;
     background: rgb(255, 255, 255, 0.8);
     margin: 1%;
     padding: 1% 1% 0;
 }
 
-.area-dropdown {
-    left: 35%;
+.filter-wrapper {
+    position: absolute;
+    width: 82.5%;
 }

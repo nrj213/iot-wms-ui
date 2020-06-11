@@ -13,6 +13,10 @@ import { FullMapComponent } from './full-map/full-map.component';
 import { AreaMapComponent } from './area-map/area-map.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MunicipalMapComponent } from './municipal-map/municipal-map.component';
+import { SearchComponent } from './search/search.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,8 @@ import { MunicipalMapComponent } from './municipal-map/municipal-map.component';
     MapComponent,
     FullMapComponent,
     AreaMapComponent,
-    MunicipalMapComponent
+    MunicipalMapComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +37,10 @@ import { MunicipalMapComponent } from './municipal-map/municipal-map.component';
     AgmCoreModule.forRoot({
       // apiKey: "xyz"
     }),
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatButtonModule
   ]
 })
 export class HomeModule { }

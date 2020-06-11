@@ -4,6 +4,7 @@ import { HomeComponent } from "./home.component";
 import { FullMapComponent } from './full-map/full-map.component';
 import { AreaMapComponent } from './area-map/area-map.component';
 import { MunicipalMapComponent } from './municipal-map/municipal-map.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: "area",
         component: AreaMapComponent
+      },
+      {
+        path: "search",
+        component: SearchComponent
       }
     ]
   }
