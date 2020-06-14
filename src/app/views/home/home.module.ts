@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { AgmCoreModule } from "@agm/core";
+import { AgmDirectionModule } from 'agm-direction';
 
 import { HomeComponent } from "./home.component";
 import { HeaderComponent } from "../common/components/header/header.component";
@@ -35,8 +36,9 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     HomeRoutingModule,
     AgmCoreModule.forRoot({
-      // apiKey: "xyz"
+      //  apiKey: "xyz"
     }),
+    AgmDirectionModule,
     MatSelectModule,
     MatTableModule,
     MatCheckboxModule,

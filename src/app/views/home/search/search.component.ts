@@ -21,6 +21,8 @@ export class SearchComponent implements OnInit {
   centralLongitude: number;
 
   roleId: number;
+  staffId: number;
+
   areaSelection: number;
   municipalitySelection: number;
 
@@ -38,6 +40,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.roleId = this.dataService.currentUserDetailsSubject.getValue().roleId;
+    this.staffId = this.dataService.currentUserDetailsSubject.getValue().staffId;
 
     let municipalityId = this.dataService.currentUserDetailsSubject.getValue().municipalityId;
     let areaId = this.dataService.currentUserDetailsSubject.getValue().areaId;
@@ -50,7 +53,7 @@ export class SearchComponent implements OnInit {
       this.areaSelection = areaId;
     }
 
-    this.getBinData(this.roleId, this.municipalitySelection, this.areaSelection)
+    this.getBinData(this.roleId, this.municipalitySelection, this.areaSelection);
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -116,7 +119,7 @@ export class SearchComponent implements OnInit {
 
     if (selectedBins.length) {
       this.toggleView();
-      
+
       this.selectedData = selectedBins;
 
       let centralCoordinates = getCenter(selectedBins);
@@ -132,4 +135,47 @@ export class SearchComponent implements OnInit {
     this.showMapView = !this.showMapView;
     this.showTableView = !this.showTableView;
   }
+
+  markAsCollected() {
+    let selectedBins = this.selection["_selected"];
+
+    if (selectedBins.length == 1) {
+      let binId = selectedBins[0].id;
+      let level = selectedBins[0].level;
+
+      if (level !== 0) {
+        if (confirm("Are you sure you want to proceed?")) {
+          let url = Constants.BIN_ENDPOINT + "/collected";
+          let body = {
+            "bin-id": binId,
+            "staff-id": this.staffId
+          };
+
+          this.httpService.put(url, body).subscribe((response: any) => {
+            if (!isNullOrUndefined(response.code) && response.code == 0) {
+              if (response.data > 0) {
+                this.binData.map((bin) => {
+                  if (bin.id == binId) {
+                    bin.level = 0;
+                  }
+                });
+                alert("Update successful")
+              } else {
+                alert("Update failed!")
+              }
+            } else {
+              alert(response.code + " : " + response.message);
+            }
+          }, (error: HttpErrorResponse) => {
+            console.log(error);
+          })
+        }
+      } else {
+        alert("Bin already empty!")
+      }
+    } else {
+      alert("Select only one bin at a time!")
+    }
+  }
+
 }

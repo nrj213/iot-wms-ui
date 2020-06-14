@@ -1,14 +1,24 @@
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true">
 
-    <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)" [latitude]="m.latitude"
-        [longitude]="m.longitude" [iconUrl]="buildIconUrl(m.level)">
+    <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)"
+        [latitude]="m.latitude" [longitude]="m.longitude" [iconUrl]="buildIconUrl(m.level)">
 
         <agm-info-window>
             <strong>Bin Info</strong>
             <div>ID: {{m.id}}</div>
-            <div>Area: {{m.area}}</div>
             <div>Level: {{m.level}}</div>
+            <div>Muncipality: {{m.municipality}}</div>
+            <div>Area: {{m.area}}</div>
+            <div>Garbage Collector Name: {{m.staffName}}</div>
+            <div>Garbage Collector Mobile: {{m.staffMobileNo}}</div>
+            <br>
+            <div class="btn-controls-wrapper">
+                <button (click)="markAsCollected(m.id, currentUser.staffId, m.level)" *ngIf="currentUser.roleId == 3">Garbage Collected</button>
+                <button (click)="markAsCollected(m.id, currentUser.staffId)">Collection History</button>
+            </div>
         </agm-info-window>
+
+        <!-- <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction> -->
 
     </agm-marker>
 

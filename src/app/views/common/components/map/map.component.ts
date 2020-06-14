@@ -1,6 +1,10 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Constants } from "@app/utils";
 import { Bin } from '../../models/bin.model';
+import { DataService, HttpService } from '@app/core';
+import { User } from '../../models/user.model';
+import { isNullOrUndefined } from 'util';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: "app-map",
@@ -8,10 +12,6 @@ import { Bin } from '../../models/bin.model';
   styleUrls: ["./map.component.scss"]
 })
 export class MapComponent implements OnInit {
-  constructor() { }
-
-  ngOnInit() { }
-
   // Dustbin data to be shown on map
   @Input('binData') markers: Bin[];
 
@@ -21,6 +21,21 @@ export class MapComponent implements OnInit {
   // initial center position for the map
   @Input('latitude') lat: number;
   @Input('longitude') lng: number;
+
+  currentUser: User;
+
+  // origin = { lat: 8.431363, lng: 76.981965 }
+  // destination = { lat: 8.498531, lng: 76.957246 }
+  // waypoints = [
+  //    {location: { lat: 8.562943, lng: 76.875893 }},
+  //    {location: { lat: 8.561774, lng: 76.943420 }}
+  // ]
+
+  constructor(private httpService: HttpService, private dataService: DataService) { }
+
+  ngOnInit() {
+    this.currentUser = this.dataService.currentUserDetailsSubject.getValue();
+  }
 
   clickedMarker(label: string, index: number) {
     console.log(`clicked the marker: ${label || index}`);
@@ -39,4 +54,38 @@ export class MapComponent implements OnInit {
 
     return baseUrl + "/bin/bin-low.png";
   }
+
+  markAsCollected(binId: number, staffId: number, currentLevel: number) {
+    if (currentLevel !== 0) {
+      if (confirm("Are you sure you want to proceed?")) {
+        let url = Constants.BIN_ENDPOINT + "/collected";
+        let body = {
+          "bin-id": binId,
+          "staff-id": staffId
+        };
+
+        this.httpService.put(url, body).subscribe((response: any) => {
+          if (!isNullOrUndefined(response.code) && response.code == 0) {
+            if (response.data > 0) {
+              this.markers.map((marker) => {
+                if (marker.id == binId) {
+                  marker.level = 0;
+                }
+              });
+              alert("Update successful")
+            } else {
+              alert("Update failed!")
+            }
+          } else {
+            alert(response.code + " : " + response.message);
+          }
+        }, (error: HttpErrorResponse) => {
+          console.log(error);
+        });
+      }
+    } else {
+      alert("Bin already empty!")
+    }
+  }
+
 }
