@@ -27,7 +27,8 @@ export class HeaderComponent implements OnInit {
         statusId: null,
         roleId: null,
         roleName: null,
-        areaId: null
+        areaId: null,
+        staffId: null
       });
       this.router.navigateByUrl("");
     } else {

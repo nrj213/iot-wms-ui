@@ -16,7 +16,8 @@ export class DataService {
         statusId: null,
         roleId: null,
         roleName: null,
-        areaId: null
+        areaId: null,
+        staffId: null
     });
     
     currentUserDetails = this.currentUserDetailsSubject.asObservable();
