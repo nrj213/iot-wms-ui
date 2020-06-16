@@ -60,6 +60,8 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
             </tr>
         </table>
+
+        <div class="no-data" *ngIf="dataSource.filteredData.length == 0">No bins</div>
     </mat-tab>
 
     <mat-tab label="Almost Full">
@@ -123,6 +125,8 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
             </tr>
         </table>
+
+        <div class="no-data" *ngIf="dataSource.filteredData.length == 0">No bins</div>
     </mat-tab>
 
     <mat-tab label="Medium Level">
@@ -186,6 +190,8 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
             </tr>
         </table>
+
+        <div class="no-data" *ngIf="dataSource.filteredData.length == 0">No bins</div>
     </mat-tab>
 
     <mat-tab label="Low Level">
@@ -249,11 +255,14 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
             </tr>
         </table>
+
+        <div class="no-data" *ngIf="dataSource.filteredData.length == 0">No bins</div>
     </mat-tab>
 </mat-tab-group>
 
-<div class="btn-options-wrapper">
+<div class="btn-options-wrapper" *ngIf="dataSource.filteredData.length > 0">
     <button mat-raised-button color="primary" (click)="showInMap()" *ngIf="showTableView">Show in Map View</button>
+    <button mat-raised-button color="primary" (click)="showCollectionHistory()" *ngIf="showTableView">Show Collection History</button>
     <button mat-raised-button color="primary" (click)="markAsCollected()" *ngIf="showTableView && roleId==3">Trash Collected</button>
 
     <button mat-raised-button color="primary" (click)="toggleView()" *ngIf="showMapView">Return to Table View</button>

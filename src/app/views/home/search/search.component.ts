@@ -7,7 +7,8 @@ import { HttpService, DataService } from '@app/core';
 import { isNullOrUndefined } from 'util';
 import { HttpErrorResponse } from '@angular/common/http';
 import { getCenter } from 'geolib';
-import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { CollectionHistoryModalComponent } from '../collection-history-modal/collection-history-modal.component';
 
 @Component({
   selector: 'app-search-table',
@@ -36,7 +37,7 @@ export class SearchComponent implements OnInit {
 
   selectedTab: number;
 
-  constructor(private httpService: HttpService, private dataService: DataService) {
+  constructor(private httpService: HttpService, private dataService: DataService, private dialog: MatDialog) {
     this.showTableView = true;
     this.showMapView = false;
   }
@@ -142,43 +143,47 @@ export class SearchComponent implements OnInit {
   markAsCollected() {
     let selectedBins = this.selection["_selected"];
 
-    if (selectedBins.length == 1) {
-      let binId = selectedBins[0].id;
-      let level = selectedBins[0].level;
+    if (selectedBins.length) {
+      if (selectedBins.length == 1) {
+        let binId = selectedBins[0].id;
+        let level = selectedBins[0].level;
 
-      if (level !== 0) {
-        if (confirm("Are you sure you want to proceed?")) {
-          let url = Constants.BIN_ENDPOINT + "/collected";
-          let body = {
-            "bin-id": binId,
-            "staff-id": this.staffId
-          };
+        if (level !== 0) {
+          if (confirm("Are you sure you want to proceed?")) {
+            let url = Constants.BIN_ENDPOINT + "/collected";
+            let body = {
+              "bin-id": binId,
+              "staff-id": this.staffId
+            };
 
-          this.httpService.put(url, body).subscribe((response: any) => {
-            if (!isNullOrUndefined(response.code) && response.code == 0) {
-              if (response.data > 0) {
-                this.binData.map((bin) => {
-                  if (bin.id == binId) {
-                    bin.level = 0;
-                  }
-                });
-                alert("Update successful");
-                this.switchTab(this.selectedTab);
+            this.httpService.put(url, body).subscribe((response: any) => {
+              if (!isNullOrUndefined(response.code) && response.code == 0) {
+                if (response.data > 0) {
+                  this.binData.map((bin) => {
+                    if (bin.id == binId) {
+                      bin.level = 0;
+                    }
+                  });
+                  alert("Update successful");
+                  this.switchTab(this.selectedTab);
+                } else {
+                  alert("Update failed!");
+                }
               } else {
-                alert("Update failed!");
+                alert(response.code + " : " + response.message);
               }
-            } else {
-              alert(response.code + " : " + response.message);
-            }
-          }, (error: HttpErrorResponse) => {
-            console.log(error);
-          })
+            }, (error: HttpErrorResponse) => {
+              console.log(error);
+            })
+          }
+        } else {
+          alert("Bin already empty!");
         }
       } else {
-        alert("Bin already empty!");
+        alert("Select only one bin at a time!");
       }
     } else {
-      alert("Select only one bin at a time!");
+      alert("Select bin first!")
     }
   }
 
@@ -211,6 +216,26 @@ export class SearchComponent implements OnInit {
         });
         this.dataSource = new MatTableDataSource<Bin>(filteredBinData);
       } break;
+    }
+  }
+
+  showCollectionHistory() {
+    let selectedBins = this.selection["_selected"];
+
+    if (selectedBins.length) {
+      if (selectedBins.length == 1) {
+        let binId = selectedBins[0].id;
+
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = binId;
+        dialogConfig.width = '500px';
+
+        this.dialog.open(CollectionHistoryModalComponent, dialogConfig);
+      } else {
+        alert("Select only one bin at a time!");
+      }
+    } else {
+      alert("Select bin first!")
     }
   }
 

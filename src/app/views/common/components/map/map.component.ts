@@ -5,6 +5,8 @@ import { DataService, HttpService } from '@app/core';
 import { User } from '../../models/user.model';
 import { isNullOrUndefined } from 'util';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { CollectionHistoryModalComponent } from '../../../home/collection-history-modal/collection-history-modal.component';
 
 @Component({
   selector: "app-map",
@@ -31,7 +33,7 @@ export class MapComponent implements OnInit {
   //    {location: { lat: 8.561774, lng: 76.943420 }}
   // ]
 
-  constructor(private httpService: HttpService, private dataService: DataService) { }
+  constructor(private httpService: HttpService, private dataService: DataService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.currentUser = this.dataService.currentUserDetailsSubject.getValue();
@@ -86,6 +88,14 @@ export class MapComponent implements OnInit {
     } else {
       alert("Bin already empty!")
     }
+  }
+
+  showCollectionHistory(binId: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = binId;
+    dialogConfig.width = '500px';
+
+    this.dialog.open(CollectionHistoryModalComponent, dialogConfig);
   }
 
 }

@@ -8,10 +8,11 @@ export class Constants {
 
   static IMG_BASE_URL = "/assets/images/";
 
-  static USER_ENDPOINT = "/users"
-  static BIN_ENDPOINT = "/bins"
-  static MUNICIPALITY_ENDPOINT = "/municipalities"
-  static AREA_ENDPOINT = "/areas"
+  static USER_ENDPOINT = "/users";
+  static BIN_ENDPOINT = "/bins";
+  static MUNICIPALITY_ENDPOINT = "/municipalities";
+  static AREA_ENDPOINT = "/areas";
+  static COLLECTION_RECORD_ENDPOINT = "/collectionrecords";
 
-  static MUNICIPALITY_ID = "municipalityId"
+  static MUNICIPALITY_ID = "municipalityId";
 }

@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
             }
           });
         } else {
-          alert("Login failed!")
+          alert("Invalid credentials!")
         }
       }, (error: HttpErrorResponse) => {
         console.log(error);

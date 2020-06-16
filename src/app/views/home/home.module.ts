@@ -19,6 +19,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CollectionHistoryModalComponent } from './collection-history-modal/collection-history-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     FullMapComponent,
     AreaMapComponent,
     MunicipalMapComponent,
-    SearchComponent
+    SearchComponent,
+    CollectionHistoryModalComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +47,11 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatTableModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    CollectionHistoryModalComponent
   ]
 })
 export class HomeModule { }
