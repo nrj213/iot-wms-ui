@@ -13,7 +13,7 @@
             <div>Garbage Collector Mobile: {{m.staffMobileNo}}</div>
             <br>
             <div class="btn-controls-wrapper">
-                <button (click)="markAsCollected(m.id, currentUser.staffId, m.level)" *ngIf="currentUser.roleId == 3">Garbage Collected</button>
+                <button (click)="markAsCollected(m.id, currentUser.staffId, m.level)" *ngIf="currentUser.roleId == 3">Trash Collected</button>
                 <button (click)="markAsCollected(m.id, currentUser.staffId)">Collection History</button>
             </div>
         </agm-info-window>

@@ -18,6 +18,7 @@ import { SearchComponent } from './search/search.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatTableModule,
     MatCheckboxModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTabsModule
   ]
 })
 export class HomeModule { }

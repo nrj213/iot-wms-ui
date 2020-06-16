@@ -7,6 +7,7 @@ import { HttpService, DataService } from '@app/core';
 import { isNullOrUndefined } from 'util';
 import { HttpErrorResponse } from '@angular/common/http';
 import { getCenter } from 'geolib';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-search-table',
@@ -32,6 +33,8 @@ export class SearchComponent implements OnInit {
 
   showTableView: boolean;
   showMapView: boolean;
+
+  selectedTab: number;
 
   constructor(private httpService: HttpService, private dataService: DataService) {
     this.showTableView = true;
@@ -159,9 +162,10 @@ export class SearchComponent implements OnInit {
                     bin.level = 0;
                   }
                 });
-                alert("Update successful")
+                alert("Update successful");
+                this.switchTab(this.selectedTab);
               } else {
-                alert("Update failed!")
+                alert("Update failed!");
               }
             } else {
               alert(response.code + " : " + response.message);
@@ -171,10 +175,42 @@ export class SearchComponent implements OnInit {
           })
         }
       } else {
-        alert("Bin already empty!")
+        alert("Bin already empty!");
       }
     } else {
-      alert("Select only one bin at a time!")
+      alert("Select only one bin at a time!");
+    }
+  }
+
+  switchTab(tabNumber: number) {
+    this.selectedTab = tabNumber;
+    this.selection.clear();
+
+    switch (tabNumber) {
+      case 0: {
+        this.dataSource = new MatTableDataSource<Bin>(this.binData);
+      } break;
+
+      case 1: {
+        let filteredBinData = this.binData.filter((bin) => {
+          return bin.level > Constants.MEDIUM_THRESHOLD;
+        });
+        this.dataSource = new MatTableDataSource<Bin>(filteredBinData);
+      } break;
+
+      case 2: {
+        let filteredBinData = this.binData.filter((bin) => {
+          return bin.level < Constants.MEDIUM_THRESHOLD && bin.level > Constants.LOW_THRESHOLD;
+        });
+        this.dataSource = new MatTableDataSource<Bin>(filteredBinData);
+      } break;
+
+      case 3: {
+        let filteredBinData = this.binData.filter((bin) => {
+          return bin.level < Constants.LOW_THRESHOLD;
+        });
+        this.dataSource = new MatTableDataSource<Bin>(filteredBinData);
+      } break;
     }
   }
 
