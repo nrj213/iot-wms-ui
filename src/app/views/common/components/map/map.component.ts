@@ -39,9 +39,9 @@ export class MapComponent implements OnInit {
     this.currentUser = this.dataService.currentUserDetailsSubject.getValue();
   }
 
-  clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`);
-  }
+  // clickedMarker(label: string, index: number) {
+  //   console.log(`clicked the marker: ${label || index}`);
+  // }
 
   buildIconUrl(status: number) {
     const baseUrl: string = Constants.IMG_BASE_URL;

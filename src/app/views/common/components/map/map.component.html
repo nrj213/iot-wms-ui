@@ -1,6 +1,6 @@
 <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true">
 
-    <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m.label, i)"
+    <agm-marker *ngFor="let m of markers; let i = index"
         [latitude]="m.latitude" [longitude]="m.longitude" [iconUrl]="buildIconUrl(m.level)">
 
         <agm-info-window>
@@ -10,7 +10,7 @@
             <div>Muncipality: {{m.municipality}}</div>
             <div>Area: {{m.area}}</div>
             <div>Garbage Collector Name: {{m.staffName}}</div>
-            <div>Garbage Collector Mobile: {{m.staffMobileNo}}</div>
+            <div>Garbage Collector Mobile: {{m.staffMobileNo ? m.staffMobileNo : 'NA'}}</div>
             <br>
             <div class="btn-controls-wrapper">
                 <button (click)="markAsCollected(m.id, currentUser.staffId, m.level)" *ngIf="currentUser.roleId == 3">Trash Collected</button>

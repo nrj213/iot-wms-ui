@@ -5,6 +5,7 @@ export interface Bin {
     latitude: number;
     longitude: number;
     level: number;
+    staffId: number;
     staffName: string;
     staffMobileNo: string;
   }

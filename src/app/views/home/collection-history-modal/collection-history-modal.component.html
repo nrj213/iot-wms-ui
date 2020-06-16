@@ -3,7 +3,7 @@
   <table mat-table [dataSource]="dataSource" *ngIf="records.length > 0">
     <ng-container matColumnDef="created">
       <th mat-header-cell *matHeaderCellDef> Collected On </th>
-      <td mat-cell *matCellDef="let element"> {{element.created | date:'medium'}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.created | date:'mediumDate'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="staffName">

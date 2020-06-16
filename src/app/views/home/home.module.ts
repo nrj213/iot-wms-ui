@@ -21,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CollectionHistoryModalComponent } from './collection-history-modal/collection-history-modal.component';
+import { StaffDetailModalComponent } from './staff-detail-modal/staff-detail-modal.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { CollectionHistoryModalComponent } from './collection-history-modal/coll
     AreaMapComponent,
     MunicipalMapComponent,
     SearchComponent,
-    CollectionHistoryModalComponent
+    CollectionHistoryModalComponent,
+    StaffDetailModalComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { CollectionHistoryModalComponent } from './collection-history-modal/coll
     MatDialogModule
   ],
   entryComponents: [
-    CollectionHistoryModalComponent
+    CollectionHistoryModalComponent,
+    StaffDetailModalComponent
   ]
 })
 export class HomeModule { }
