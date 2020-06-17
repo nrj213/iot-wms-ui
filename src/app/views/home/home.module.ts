@@ -20,6 +20,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 import { CollectionHistoryModalComponent } from './collection-history-modal/collection-history-modal.component';
 import { StaffDetailModalComponent } from './staff-detail-modal/staff-detail-modal.component';
 
@@ -50,7 +51,8 @@ import { StaffDetailModalComponent } from './staff-detail-modal/staff-detail-mod
     MatCheckboxModule,
     MatButtonModule,
     MatTabsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule
   ],
   entryComponents: [
     CollectionHistoryModalComponent,

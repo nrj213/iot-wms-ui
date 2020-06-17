@@ -2,6 +2,16 @@ agm-map {
   height: 100%;
 }
 
-// .btn-controls-wrapper button {
-//   margin-right: 3%;
-// }
+.collector-name span {
+  text-decoration: underline;
+  cursor: pointer;
+  color: blue;
+}
+
+.btn-controls-wrapper {
+  text-align: center;
+
+  button {
+    margin: 0 2px;
+  }
+}

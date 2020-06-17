@@ -1,1 +1,48 @@
-<p>staff-detail-modal works!</p>
+<h2 mat-dialog-title>{{modalTitle}}</h2>
+<mat-dialog-content class="mat-typography">
+    <form class="staff-form">
+        <mat-form-field class="full-width">
+            <mat-label>Staff ID</mat-label>
+            <input matInput value="{{info.staffId}}" disabled>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" *ngIf="role">
+            <mat-label>Role</mat-label>
+            <input matInput value="{{role}}" disabled>
+        </mat-form-field>
+
+        <mat-form-field class="full-width" *ngIf="!role">
+            <mat-label>Area</mat-label>
+            <input matInput value="{{info.areaName}}" disabled>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+            <input matInput value="{{info.name}}" disabled>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Address</mat-label>
+            <textarea matInput value="{{info.address}}" disabled></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Mobile No</mat-label>
+            <textarea matInput value="{{info.mobileNo}}" disabled></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Date of joining</mat-label>
+            <input matInput value="{{info.dateOfJoining | date: 'mediumDate'}}" disabled>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Date of leaving</mat-label>
+            <input matInput value="{{dateOfLeaving ? (dateOfLeaving | date: 'mediumDate') : 'NA'}}" disabled>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close cdkFocusInitial>Close</button>
+</mat-dialog-actions>

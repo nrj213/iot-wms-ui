@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
               municipalityId
             }
             this.dataService.passUserDetails(userData);
+            sessionStorage.setItem(Constants.SESSION_STORAGE_NAME, JSON.stringify(userData));
 
             let roleId = userData.roleId;
 

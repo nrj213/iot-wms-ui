@@ -9,8 +9,8 @@
             <div>Level: {{m.level}}</div>
             <div>Muncipality: {{m.municipality}}</div>
             <div>Area: {{m.area}}</div>
-            <div>Garbage Collector Name: {{m.staffName}}</div>
-            <div>Garbage Collector Mobile: {{m.staffMobileNo ? m.staffMobileNo : 'NA'}}</div>
+            <div *ngIf="currentUser.roleId !== 3" class="collector-name">Garbage Collector: <span title="Click to see staff details" (click)="showStaffDetails(m.staffId)">{{m.staffName}}</span></div>
+            <!-- <div *ngIf="currentUser.roleId !== 3">Garbage Collector Mobile: {{m.staffMobileNo ? m.staffMobileNo : 'NA'}}</div> -->
             <br>
             <div class="btn-controls-wrapper">
                 <button (click)="markAsCollected(m.id, currentUser.staffId, m.level)" *ngIf="currentUser.roleId == 3">Trash Collected</button>

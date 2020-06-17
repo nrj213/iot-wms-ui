@@ -1,5 +1,5 @@
 export interface Staff {
-    id: number;
+    staffId: number;
     name: string;
     address: string;
     mobileNo: string;

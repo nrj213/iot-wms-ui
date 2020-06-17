@@ -7,6 +7,7 @@ import { isNullOrUndefined } from 'util';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CollectionHistoryModalComponent } from '../../../home/collection-history-modal/collection-history-modal.component';
+import { StaffDetailModalComponent } from '@app/views/home/staff-detail-modal/staff-detail-modal.component';
 
 @Component({
   selector: "app-map",
@@ -96,6 +97,17 @@ export class MapComponent implements OnInit {
     dialogConfig.width = '500px';
 
     this.dialog.open(CollectionHistoryModalComponent, dialogConfig);
+  }
+
+  showStaffDetails(staffId: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      staffId,
+      modalTitle: "Staff Details"
+    }
+    dialogConfig.width = '350px';
+
+    this.dialog.open(StaffDetailModalComponent, dialogConfig);
   }
 
 }

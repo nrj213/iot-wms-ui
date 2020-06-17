@@ -18,8 +18,7 @@ export class CollectionHistoryModalComponent implements OnInit {
   dataSource = new MatTableDataSource<CollectionRecord>(this.records);
   displayedColumns: string[] = [];
 
-  constructor(private httpService: HttpService,
-    private dialogRef: MatDialogRef<CollectionHistoryModalComponent>, @Inject(MAT_DIALOG_DATA) data) {
+  constructor(private httpService: HttpService, @Inject(MAT_DIALOG_DATA) data) {
     this.binId = data;
   }
 

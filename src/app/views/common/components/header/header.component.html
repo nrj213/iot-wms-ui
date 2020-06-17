@@ -6,7 +6,7 @@
 
   <div id="site-name">SMART TRASH</div>
 
-  <div id="name-wrapper">
+  <div id="name-wrapper" (click)="showStaffDetails(currentUser.staffId)">
     <span id="intials">{{initials}}</span>
     <span id="name">{{currentUser.name}}</span>
     <span id="role">({{currentUser.roleName}})</span>

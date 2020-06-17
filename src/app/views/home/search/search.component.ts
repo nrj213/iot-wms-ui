@@ -9,6 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { getCenter } from 'geolib';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { CollectionHistoryModalComponent } from '../collection-history-modal/collection-history-modal.component';
+import { StaffDetailModalComponent } from '../staff-detail-modal/staff-detail-modal.component';
 
 @Component({
   selector: 'app-search-table',
@@ -237,6 +238,17 @@ export class SearchComponent implements OnInit {
     } else {
       alert("Select bin first!")
     }
+  }
+
+  showStaffDetails(staffId: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      staffId,
+      modalTitle: "Staff Details"
+    }
+    dialogConfig.width = '350px';
+
+    this.dialog.open(StaffDetailModalComponent, dialogConfig);
   }
 
 }
