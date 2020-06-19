@@ -30,6 +30,11 @@ const routes: Routes = [
       {
         path: "search",
         component: SearchComponent
+      },
+      {
+        path: "sitemanagement",
+        loadChildren: () =>
+          import("./site-management/site-management.module").then(m => m.SiteManagementModule)
       }
     ]
   }

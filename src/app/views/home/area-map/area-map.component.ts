@@ -80,6 +80,9 @@ export class AreaMapComponent implements OnInit {
     this.httpService.get(url).subscribe((response: any) => {
       if (!isNullOrUndefined(response.code) && response.code == 0) {
         this.areaList = response.data;
+        if(!this.areaList.length) {
+          alert("No area data under this municipality!");
+        }
       } else {
         alert(response.code + " : " + response.message);
       }
@@ -100,6 +103,9 @@ export class AreaMapComponent implements OnInit {
     this.httpService.get(url).subscribe((response: any) => {
       if (!isNullOrUndefined(response.code) && response.code == 0) {
         this.municipalityList = response.data;
+        if(!this.municipalityList.length) {
+          alert("Municipality data not available!");
+        }
       } else {
         alert(response.code + " : " + response.message);
       }
