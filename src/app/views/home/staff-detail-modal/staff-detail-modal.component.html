@@ -36,7 +36,7 @@
             <input matInput value="{{info.dateOfJoining | date: 'mediumDate'}}" disabled>
         </mat-form-field>
 
-        <mat-form-field class="full-width">
+        <mat-form-field class="full-width" *ngIf="!role">
             <mat-label>Date of leaving</mat-label>
             <input matInput value="{{dateOfLeaving ? (dateOfLeaving | date: 'mediumDate') : 'NA'}}" disabled>
         </mat-form-field>

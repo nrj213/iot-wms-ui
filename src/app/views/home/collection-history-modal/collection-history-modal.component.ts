@@ -5,7 +5,8 @@ import { HttpService } from '@app/core';
 import { CollectionRecord } from '@app/views/common/models/collectionrecord.model';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { StaffDetailModalComponent } from '../staff-detail-modal/staff-detail-modal.component';
 
 @Component({
   selector: 'app-popup',
@@ -18,7 +19,7 @@ export class CollectionHistoryModalComponent implements OnInit {
   dataSource = new MatTableDataSource<CollectionRecord>(this.records);
   displayedColumns: string[] = [];
 
-  constructor(private httpService: HttpService, @Inject(MAT_DIALOG_DATA) data) {
+  constructor(private httpService: HttpService, @Inject(MAT_DIALOG_DATA) data, private dialog: MatDialog) {
     this.binId = data;
   }
 
@@ -44,4 +45,14 @@ export class CollectionHistoryModalComponent implements OnInit {
     })
   }
 
+  showStaffDetails(staffId: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      staffId,
+      modalTitle: "Staff Details"
+    }
+    dialogConfig.width = '350px';
+
+    this.dialog.open(StaffDetailModalComponent, dialogConfig);
+  }
 }

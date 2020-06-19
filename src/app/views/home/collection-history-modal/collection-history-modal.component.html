@@ -8,7 +8,10 @@
 
     <ng-container matColumnDef="staffName">
       <th mat-header-cell *matHeaderCellDef> Collected By </th>
-      <td mat-cell *matCellDef="let element"> {{element.staffName}} </td>
+      <td mat-cell *matCellDef="let element">
+        <a title="Click to see staff details" class="staff-name"
+          (click)="showStaffDetails(element.staffId)">{{element.staffName}}</a>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
