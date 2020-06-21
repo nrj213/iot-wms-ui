@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SiteManagementComponent } from './site-management.component';
 import { MunicipalityComponent } from './municipality/municipality.component';
 import { AreaComponent } from './area/area.component';
+import { StaffComponent } from './staff/staff.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: "area",
     component: AreaComponent
+  },
+  {
+    path: "staff",
+    component: StaffComponent
   }
 ];
 

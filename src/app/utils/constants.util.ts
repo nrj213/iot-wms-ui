@@ -14,6 +14,8 @@ export class Constants {
   static AREA_ENDPOINT = "/areas";
   static COLLECTION_RECORD_ENDPOINT = "/collectionrecords";
   static STAFF_DETAILS_ENDPOINT = "/staff";
+  static ROLE_DETAILS_ENDPOINT = "/roles";
+  static STATUS_DETAILS_ENDPOINT = "/status";
 
   static MUNICIPALITY_ID = "municipalityId";
   static SESSION_STORAGE_NAME = "currentUserInfo";

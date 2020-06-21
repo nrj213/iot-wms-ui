@@ -1,0 +1,77 @@
+<h2 mat-dialog-title>Add</h2>
+<mat-dialog-content class="mat-typography">
+    <form class="form">
+        <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+            <input name="name" matInput [(ngModel)]="staffItem.name">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Address</mat-label>
+            <textarea name="address" matInput [(ngModel)]="staffItem.address"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Mobile No</mat-label>
+            <input name="mobileNo" matInput [(ngModel)]="staffItem.mobileNo">
+        </mat-form-field>
+
+        <mat-form-field class="mat-dropdown">
+            <mat-label>Area</mat-label>
+            <mat-select name="area" [(value)]="staffItem.areaId" disabled>
+                <mat-option *ngFor="let area of areaList" [value]="area.id">
+                    {{area.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div>
+            <mat-form-field class="doj">
+                <mat-label>Date of Joining</mat-label>
+                <input name="dateOfJoining" matInput [matDatepicker]="dojpicker" [(ngModel)]="staffItem.dateOfJoining">
+                <mat-datepicker-toggle matSuffix [for]="dojpicker"></mat-datepicker-toggle>
+                <mat-datepicker #dojpicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="dol">
+                <mat-label>Date of Leaving</mat-label>
+                <input name="dateOfLeaving" matInput [matDatepicker]="dolpicker" [(ngModel)]="staffItem.dateOfLeaving">
+                <mat-datepicker-toggle matSuffix [for]="dolpicker"></mat-datepicker-toggle>
+                <mat-datepicker #dolpicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field class="full-width">
+            <mat-label>Username</mat-label>
+            <input name="username" matInput [(ngModel)]="staffItem.username">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input name="password" matInput [(ngModel)]="staffItem.password">
+        </mat-form-field>
+
+        <mat-form-field class="mat-dropdown">
+            <mat-label>Role</mat-label>
+            <mat-select name="role" [(value)]="staffItem.roleId">
+                <mat-option *ngFor="let role of roleList" [value]="role.id">
+                    {{role.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="mat-dropdown status">
+            <mat-label>Status</mat-label>
+            <mat-select name="status" [(value)]="staffItem.statusId">
+                <mat-option *ngFor="let status of statusList" [value]="status.id">
+                    {{status.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="staffItem">Add</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

@@ -14,6 +14,9 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { AreaComponent, AddAreaModalComponent, EditAreaModalComponent } from './area/area.component';
 import { MatSelectModule } from '@angular/material/select';
+import { StaffComponent, AddStaffModalComponent, EditStaffModalComponent } from './staff/staff.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { MatSelectModule } from '@angular/material/select';
     EditMunicipalityModalComponent,
     AreaComponent,
     AddAreaModalComponent,
-    EditAreaModalComponent
+    EditAreaModalComponent,
+    StaffComponent,
+    AddStaffModalComponent,
+    EditStaffModalComponent
   ],
   imports: [
     SiteManagementRoutingModule,
@@ -37,13 +43,17 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
     MatDialogModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   entryComponents: [
     AddMunicipalityModalComponent,
     EditMunicipalityModalComponent,
     AddAreaModalComponent,
-    EditAreaModalComponent
+    EditAreaModalComponent,
+    AddStaffModalComponent,
+    EditStaffModalComponent
   ]
 })
 export class SiteManagementModule { }
