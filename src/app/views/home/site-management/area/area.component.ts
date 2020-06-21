@@ -1,25 +1,29 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Constants } from '@app/utils';
+import { Area } from '@app/views/common/models/area.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
 import { HttpService } from '@app/core';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Constants } from '@app/utils';
 import { isNullOrUndefined } from 'util';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatTableDataSource } from '@angular/material/table';
 import { Municipality } from '@app/views/common/models/municipality.model';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-municipality',
-  templateUrl: './municipality.component.html',
-  styleUrls: ['./municipality.component.scss']
+  selector: 'app-area',
+  templateUrl: './area.component.html',
+  styleUrls: ['./area.component.scss']
 })
-export class MunicipalityComponent implements OnInit {
+export class AreaComponent implements OnInit {
   municipalityList: Municipality[];
   municipalitySelection: number;
+  
+  areaList: Area[];
+  areaSelection: number;
 
   displayedColumns: string[] = ['select', 'name'];
-  dataSource = new MatTableDataSource<Municipality>(this.municipalityList);
-  selection = new SelectionModel<Municipality>(true, []);
+  dataSource = new MatTableDataSource<Area>(this.areaList);
+  selection = new SelectionModel<Area>(true, []);
 
   constructor(private httpService: HttpService, private dialog: MatDialog) { }
 
@@ -42,7 +46,7 @@ export class MunicipalityComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Municipality): string {
+  checkboxLabel(row?: Area): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -55,10 +59,33 @@ export class MunicipalityComponent implements OnInit {
     this.httpService.get(url).subscribe((response: any) => {
       if (!isNullOrUndefined(response.code) && response.code == 0) {
         this.municipalityList = response.data;
-        this.dataSource = new MatTableDataSource<Municipality>(this.municipalityList);
-
-        if (!this.municipalityList.length) {
+        if(!this.municipalityList.length) {
           alert("Municipality data not available!");
+        }
+      } else {
+        alert(response.code + " : " + response.message);
+      }
+    }, (error: HttpErrorResponse) => {
+      console.log(error);
+    })
+  }
+
+  onMunicipalityChange() {
+    if (!isNaN(this.municipalitySelection)) {
+      this.getAreaData(this.municipalitySelection);
+    }
+  }
+
+  getAreaData(municipalityId) {
+    let url = Constants.AREA_ENDPOINT + "/" + municipalityId;
+
+    this.httpService.get(url).subscribe((response: any) => {
+      if (!isNullOrUndefined(response.code) && response.code == 0) {
+        this.areaList = response.data;
+        this.dataSource = new MatTableDataSource<Area>(this.areaList);
+
+        if (!this.areaList.length) {
+          alert("Area data not available!");
         }
       } else {
         alert(response.code + " : " + response.message);
@@ -72,20 +99,21 @@ export class MunicipalityComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = '500px';
 
-    const dialogRef = this.dialog.open(AddMunicipalityModalComponent, dialogConfig);
+    const dialogRef = this.dialog.open(AddAreaModalComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
       if (data) {
-        let url = Constants.MUNICIPALITY_ENDPOINT;
+        let url = Constants.AREA_ENDPOINT;
         let body = {
-          "name": data.name
+          "name": data.name,
+          "municipality-id": this.municipalitySelection
         };
 
         this.httpService.post(url, body).subscribe((response: any) => {
           if (!isNullOrUndefined(response.code) && response.code == 0) {
             if (response.data > 0) {
               alert("Added successfully");
-              this.getMunicipalityData();
+              this.getAreaData(this.municipalitySelection);
             } else {
               alert("Failed to add!");
             }
@@ -108,11 +136,11 @@ export class MunicipalityComponent implements OnInit {
         dialogConfig.data = selected[0];
         dialogConfig.width = '500px';
 
-        const dialogRef = this.dialog.open(EditMunicipalityModalComponent, dialogConfig);
+        const dialogRef = this.dialog.open(EditAreaModalComponent, dialogConfig);
 
         dialogRef.afterClosed().subscribe(data => {
           if (data) {
-            let url = Constants.MUNICIPALITY_ENDPOINT;
+            let url = Constants.AREA_ENDPOINT;
             let body = data;
 
             this.httpService.put(url, body).subscribe((response: any) => {
@@ -123,7 +151,7 @@ export class MunicipalityComponent implements OnInit {
                   alert("Failed to edit!");
                 }
                 this.selection.clear();
-                this.getMunicipalityData();
+                this.getAreaData(this.municipalitySelection);
               } else {
                 alert(response.code + " : " + response.message);
               }
@@ -147,7 +175,7 @@ export class MunicipalityComponent implements OnInit {
       if (selected.length == 1) {
         if (confirm("Proceed with the deletion?")) {
           let id = selected[0].id;
-          let url = Constants.MUNICIPALITY_ENDPOINT + "?id=" + id;
+          let url = Constants.AREA_ENDPOINT + "?id=" + id;
 
           this.httpService.delete(url).subscribe((response: any) => {
             if (!isNullOrUndefined(response.code) && response.code == 0) {
@@ -157,7 +185,7 @@ export class MunicipalityComponent implements OnInit {
                 alert("Failed to delete!")
               }
               this.selection.clear();
-              this.getMunicipalityData();
+              this.getAreaData(this.municipalitySelection);
             } else {
               alert(response.code + " : " + response.message);
             }
@@ -178,8 +206,8 @@ export class MunicipalityComponent implements OnInit {
   templateUrl: './add-modal.html',
   styleUrls: ['./add-modal.scss']
 })
-export class AddMunicipalityModalComponent {
-  municipalityItem: Municipality = {
+export class AddAreaModalComponent {
+  areaItem: Area = {
     name: ''
   }
 }
@@ -188,10 +216,10 @@ export class AddMunicipalityModalComponent {
   templateUrl: './edit-modal.html',
   styleUrls: ['./edit-modal.scss']
 })
-export class EditMunicipalityModalComponent {
-  municipalityItem: Municipality;
+export class EditAreaModalComponent {
+  areaItem: Area;
 
   constructor(@Inject(MAT_DIALOG_DATA) data) {
-    this.municipalityItem = data;
+    this.areaItem = data;
   }
 }

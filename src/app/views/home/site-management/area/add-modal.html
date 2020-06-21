@@ -3,12 +3,12 @@
     <form class="form">
         <mat-form-field class="full-width">
             <mat-label>Name</mat-label>
-            <input name="name" matInput [(ngModel)]="municipalityItem.name" required>
+            <input name="name" matInput [(ngModel)]="areaItem.name" required>
         </mat-form-field>
     </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-button [mat-dialog-close]="municipalityItem" [disabled]="!municipalityItem.name">Add</button>
+    <button mat-button [mat-dialog-close]="areaItem" [disabled]="!areaItem.name">Add</button>
     <button mat-button mat-dialog-close>Cancel</button>
 </mat-dialog-actions>

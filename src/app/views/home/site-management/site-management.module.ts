@@ -12,13 +12,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { AreaComponent, AddAreaModalComponent, EditAreaModalComponent } from './area/area.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
     SiteManagementComponent,
     MunicipalityComponent,
     AddMunicipalityModalComponent,
-    EditMunicipalityModalComponent
+    EditMunicipalityModalComponent,
+    AreaComponent,
+    AddAreaModalComponent,
+    EditAreaModalComponent
   ],
   imports: [
     SiteManagementRoutingModule,
@@ -28,6 +33,7 @@ import { FormsModule } from '@angular/forms';
     MatTableModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatSelectModule,
     MatIconModule,
     MatDialogModule,
     MatInputModule,
@@ -35,7 +41,9 @@ import { FormsModule } from '@angular/forms';
   ],
   entryComponents: [
     AddMunicipalityModalComponent,
-    EditMunicipalityModalComponent
+    EditMunicipalityModalComponent,
+    AddAreaModalComponent,
+    EditAreaModalComponent
   ]
 })
 export class SiteManagementModule { }
