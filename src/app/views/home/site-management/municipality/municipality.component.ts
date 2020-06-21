@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Constants } from '@app/utils';
 import { HttpService } from '@app/core';
 import { isNullOrUndefined } from 'util';
@@ -6,7 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MatTableDataSource } from '@angular/material/table';
 import { Municipality } from '@app/views/common/models/municipality.model';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-municipality',
@@ -77,25 +77,28 @@ export class MunicipalityComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       console.log(data);
 
-      let url = Constants.BIN_ENDPOINT + "/collected";
-      let body = {
-        "name": data.name
-      };
+      if (data) {
+        let url = Constants.BIN_ENDPOINT + "/collected";
+        let body = {
+          "name": data.name
+        };
 
-      this.httpService.put(url, body).subscribe((response: any) => {
-        if (!isNullOrUndefined(response.code) && response.code == 0) {
-          if (response.data > 0) {
+        this.httpService.put(url, body).subscribe((response: any) => {
+          if (!isNullOrUndefined(response.code) && response.code == 0) {
+            if (response.data > 0) {
 
-            alert("Added successfully")
+              alert("Added successfully");
+              this.getMunicipalityData();
+            } else {
+              alert("Failed to add!")
+            }
           } else {
-            alert("Failed to add!")
+            alert(response.code + " : " + response.message);
           }
-        } else {
-          alert(response.code + " : " + response.message);
-        }
-      }, (error: HttpErrorResponse) => {
-        console.log(error);
-      });
+        }, (error: HttpErrorResponse) => {
+          console.log(error);
+        });
+      }
     });
   }
 
@@ -105,6 +108,7 @@ export class MunicipalityComponent implements OnInit {
     if (selected.length) {
       if (selected.length == 1) {
         const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = selected[0];
         dialogConfig.width = '500px';
 
         const dialogRef = this.dialog.open(EditMunicipalityModalComponent, dialogConfig);
@@ -112,25 +116,25 @@ export class MunicipalityComponent implements OnInit {
         dialogRef.afterClosed().subscribe(data => {
           console.log(data);
 
-          let url = Constants.BIN_ENDPOINT + "/collected";
-          let body = {
-            "name": data.name
-          };
+          if (data) {
+            let url = Constants.BIN_ENDPOINT + "/collected";
+            let body = data;
 
-          this.httpService.put(url, body).subscribe((response: any) => {
-            if (!isNullOrUndefined(response.code) && response.code == 0) {
-              if (response.data > 0) {
+            this.httpService.put(url, body).subscribe((response: any) => {
+              if (!isNullOrUndefined(response.code) && response.code == 0) {
+                if (response.data > 0) {
 
-                alert("Added successfully")
+                  alert("Added successfully")
+                } else {
+                  alert("Failed to add!")
+                }
               } else {
-                alert("Failed to add!")
+                alert(response.code + " : " + response.message);
               }
-            } else {
-              alert(response.code + " : " + response.message);
-            }
-          }, (error: HttpErrorResponse) => {
-            console.log(error);
-          });
+            }, (error: HttpErrorResponse) => {
+              console.log(error);
+            });
+          }
         });
       } else {
         alert("Select only one row at a time!");
@@ -145,24 +149,24 @@ export class MunicipalityComponent implements OnInit {
 
     if (selected.length) {
       if (selected.length == 1) {
-          let id = selected[0].id;
-          console.log(id);
-          let url = Constants.BIN_ENDPOINT + "/collected";
-          
-          this.httpService.delete(url).subscribe((response: any) => {
-            if (!isNullOrUndefined(response.code) && response.code == 0) {
-              if (response.data > 0) {
+        let id = selected[0].id;
+        console.log(id);
+        let url = Constants.BIN_ENDPOINT + "/collected";
 
-                alert("Added successfully")
-              } else {
-                alert("Failed to add!")
-              }
+        this.httpService.delete(url).subscribe((response: any) => {
+          if (!isNullOrUndefined(response.code) && response.code == 0) {
+            if (response.data > 0) {
+
+              alert("Added successfully")
             } else {
-              alert(response.code + " : " + response.message);
+              alert("Failed to add!")
             }
-          }, (error: HttpErrorResponse) => {
-            console.log(error);
-          });
+          } else {
+            alert(response.code + " : " + response.message);
+          }
+        }, (error: HttpErrorResponse) => {
+          console.log(error);
+        });
       } else {
         alert("Select only one row at a time!");
       }
@@ -187,7 +191,9 @@ export class AddMunicipalityModalComponent {
   styleUrls: ['./edit-modal.scss']
 })
 export class EditMunicipalityModalComponent {
-  municipalityItem: Municipality = {
-    name: 'Trivandrum'
+  municipalityItem: Municipality;
+
+  constructor(@Inject(MAT_DIALOG_DATA) data) {
+    this.municipalityItem = data;
   }
 }

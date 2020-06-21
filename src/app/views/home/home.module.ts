@@ -23,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { CollectionHistoryModalComponent } from './collection-history-modal/collection-history-modal.component';
 import { StaffDetailModalComponent } from './staff-detail-modal/staff-detail-modal.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { StaffDetailModalComponent } from './staff-detail-modal/staff-detail-mod
     MatButtonModule,
     MatTabsModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule
   ],
   entryComponents: [
     CollectionHistoryModalComponent,
