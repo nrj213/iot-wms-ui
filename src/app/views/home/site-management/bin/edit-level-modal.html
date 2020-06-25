@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Update</h2>
+<mat-dialog-content class="mat-typography">
+    <form class="form">
+        <mat-form-field class="full-width">
+            <mat-label>Bin ID</mat-label>
+            <input name="id" matInput [(ngModel)]="binItem.id" disabled>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Level</mat-label>
+            <input name="level" matInput [(ngModel)]="binItem.level">
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="binItem">Update</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>

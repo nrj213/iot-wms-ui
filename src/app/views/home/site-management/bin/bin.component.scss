@@ -10,13 +10,18 @@
 }
 
 table {
-    width: 40%;
+    width: 96%;
     margin: 0 2% 1%;
 
     ::ng-deep {
         &.mat-checkbox-checked.mat-accent .mat-checkbox-background, &.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
             background-color: #36ac72a6;
         }
+    }
+
+    .mat-cell, .mat-footer-cell {
+        font-size: 0.7em;
+        font-weight: 400;
     }
 }
 
@@ -45,6 +50,11 @@ table {
 
         &.delete {
             background-color: #b3010199;
+        }
+
+        &.modify-level {
+            background-color: #c3f14399;
+            color: black;
         }
     }    
 }

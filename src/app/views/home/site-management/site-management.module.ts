@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { StaffComponent, AddStaffModalComponent, EditStaffModalComponent } from './staff/staff.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { BinComponent, AddBinModalComponent, EditBinModalComponent, ModifyBinLevelModalComponent } from './bin/bin.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,11 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
     EditAreaModalComponent,
     StaffComponent,
     AddStaffModalComponent,
-    EditStaffModalComponent
+    EditStaffModalComponent,
+    BinComponent,
+    AddBinModalComponent,
+    EditBinModalComponent,
+    ModifyBinLevelModalComponent
   ],
   imports: [
     SiteManagementRoutingModule,
@@ -53,7 +58,10 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
     AddAreaModalComponent,
     EditAreaModalComponent,
     AddStaffModalComponent,
-    EditStaffModalComponent
+    EditStaffModalComponent,
+    AddBinModalComponent,
+    EditBinModalComponent,
+    ModifyBinLevelModalComponent
   ],
   providers: [DatePipe]
 })

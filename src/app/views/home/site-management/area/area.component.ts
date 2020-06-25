@@ -71,6 +71,8 @@ export class AreaComponent implements OnInit {
   }
 
   onMunicipalityChange() {
+    this.selection.clear();
+    
     if (!isNaN(this.municipalitySelection)) {
       this.getAreaData(this.municipalitySelection);
     }

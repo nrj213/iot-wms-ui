@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>Add</h2>
+<mat-dialog-content class="mat-typography">
+    <form class="form">
+        <mat-form-field class="mat-dropdown">
+            <mat-label>Area</mat-label>
+            <mat-select name="area" [(value)]="binItem.areaId" disabled>
+                <mat-option *ngFor="let area of areaList" [value]="area.id">
+                    {{area.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Latitude</mat-label>
+            <input name="latitude" matInput [(ngModel)]="binItem.latitude">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Longitude</mat-label>
+            <input name="longitude" matInput [(ngModel)]="binItem.longitude">
+        </mat-form-field>
+
+        <mat-form-field class="mat-dropdown">
+            <mat-label>Garbage Collector</mat-label>
+            <mat-select name="staff" [(value)]="binItem.staffId">
+                <mat-option *ngFor="let staff of staffList" [value]="staff.staffId">
+                    {{staff.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="binItem" [disabled]="!staffList.length">Add</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
