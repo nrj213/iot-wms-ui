@@ -269,7 +269,7 @@
     <button mat-icon-button color="primary" aria-label="Back button" title="Return to Table View" (click)="toggleView()" *ngIf="showMapView">
         <mat-icon>keyboard_backspace</mat-icon>
     </button>
-    <button mat-raised-button color="primary" (click)="toggleView()" *ngIf="showMapView && roleId==3">Show Optimal Route</button>
+    <!-- <button mat-raised-button color="primary" (click)="toggleView()" *ngIf="showMapView && roleId==3">Show Optimal Route</button> -->
 </div>
 
 <app-map *ngIf="showMapView" [binData]="selectedData" [zoom]="zoom" [latitude]="centralLatitude"
