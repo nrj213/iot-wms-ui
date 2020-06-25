@@ -7,6 +7,7 @@ export interface Staff {
     areaName?: string;
     dateOfJoining: string;
     dateOfLeaving: string;
+    userId?: string;
     username?: string;
     password?: string;
     status?:string;

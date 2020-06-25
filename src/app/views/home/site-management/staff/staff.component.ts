@@ -11,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Area } from '@app/views/common/models/area.model';
 import { Role } from '@app/views/common/models/role.model';
 import { Status } from '@app/views/common/models/status.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-staff',
@@ -23,7 +24,7 @@ export class StaffComponent implements OnInit {
 
   areaList: Area[];
   areaSelection: number;
-  
+
   staffList: Staff[];
   staffSelection: number;
 
@@ -37,7 +38,7 @@ export class StaffComponent implements OnInit {
   dataSource = new MatTableDataSource<Staff>(this.staffList);
   selection = new SelectionModel<Staff>(true, []);
 
-  constructor(private httpService: HttpService, private dialog: MatDialog) { }
+  constructor(private httpService: HttpService, private dialog: MatDialog, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.getMunicipalityData();
@@ -73,7 +74,7 @@ export class StaffComponent implements OnInit {
     this.httpService.get(url).subscribe((response: any) => {
       if (!isNullOrUndefined(response.code) && response.code == 0) {
         this.municipalityList = response.data;
-        if(!this.municipalityList.length) {
+        if (!this.municipalityList.length) {
           alert("Municipality data not available!");
         }
       } else {
@@ -89,14 +90,14 @@ export class StaffComponent implements OnInit {
       this.getAreaData(this.municipalitySelection);
     }
   }
-  
+
   getAreaData(municipalityId) {
     let url = Constants.AREA_ENDPOINT + "/" + municipalityId;
 
     this.httpService.get(url).subscribe((response: any) => {
       if (!isNullOrUndefined(response.code) && response.code == 0) {
         this.areaList = response.data;
-        if(!this.areaList.length) {
+        if (!this.areaList.length) {
           alert("No area data under this municipality!");
         }
       } else {
@@ -138,7 +139,7 @@ export class StaffComponent implements OnInit {
     this.httpService.get(url).subscribe((response: any) => {
       if (!isNullOrUndefined(response.code) && response.code == 0) {
         this.roleList = response.data;
-        if(!this.roleList.length) {
+        if (!this.roleList.length) {
           alert("Failed to get role data!");
         }
       } else {
@@ -155,7 +156,7 @@ export class StaffComponent implements OnInit {
     this.httpService.get(url).subscribe((response: any) => {
       if (!isNullOrUndefined(response.code) && response.code == 0) {
         this.statusList = response.data;
-        if(!this.statusList.length) {
+        if (!this.statusList.length) {
           alert("Failed to get status data!");
         }
       } else {
@@ -179,19 +180,23 @@ export class StaffComponent implements OnInit {
     const dialogRef = this.dialog.open(AddStaffModalComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
+      if (data.dateOfJoining) {
+        data.dateOfJoining = this.datePipe.transform(data.dateOfJoining, 'MM-dd-yyyy');
+      }
+
+      if (data.dateOfLeaving) {
+        data.dateOfLeaving = this.datePipe.transform(data.dateOfLeaving, 'MM-dd-yyyy');
+      }
+
       if (data) {
         let url = Constants.STAFF_DETAILS_ENDPOINT;
-        let body = {
-          "name": data.name,
-          "municipality-id": this.municipalitySelection
-        };
+        let body = data;
 
         this.httpService.post(url, body).subscribe((response: any) => {
           if (!isNullOrUndefined(response.code) && response.code == 0) {
             if (response.data > 0) {
               alert("Added successfully");
-              this.getStaffData(this.municipalitySelection);
+              this.getStaffData(this.areaSelection);
             } else {
               alert("Failed to add!");
             }
@@ -229,7 +234,7 @@ export class StaffComponent implements OnInit {
                   alert("Failed to edit!");
                 }
                 this.selection.clear();
-                this.getStaffData(this.municipalitySelection);
+                this.getStaffData(this.areaSelection);
               } else {
                 alert(response.code + " : " + response.message);
               }
@@ -252,8 +257,9 @@ export class StaffComponent implements OnInit {
     if (selected.length) {
       if (selected.length == 1) {
         if (confirm("Proceed with the deletion?")) {
-          let id = selected[0].id;
-          let url = Constants.STAFF_DETAILS_ENDPOINT + "?id=" + id;
+          let staffId = selected[0].staffId;
+          let userId = selected[0].userId;
+          let url = Constants.STAFF_DETAILS_ENDPOINT + "?staffId=" + staffId + "&userId=" + userId;
 
           this.httpService.delete(url).subscribe((response: any) => {
             if (!isNullOrUndefined(response.code) && response.code == 0) {
@@ -263,7 +269,7 @@ export class StaffComponent implements OnInit {
                 alert("Failed to delete!")
               }
               this.selection.clear();
-              this.getStaffData(this.municipalitySelection);
+              this.getStaffData(this.areaSelection);
             } else {
               alert(response.code + " : " + response.message);
             }
@@ -291,7 +297,7 @@ export class AddStaffModalComponent {
     mobileNo: '',
     areaId: null,
     dateOfJoining: '',
-    dateOfLeaving: ''
+    dateOfLeaving: null
   }
 
   areaList: Area[];

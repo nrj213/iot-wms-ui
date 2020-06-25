@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { SiteManagementRoutingModule } from './site-management-routing.module';
 import { SiteManagementComponent } from './site-management.component';
@@ -54,6 +54,7 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
     EditAreaModalComponent,
     AddStaffModalComponent,
     EditStaffModalComponent
-  ]
+  ],
+  providers: [DatePipe]
 })
 export class SiteManagementModule { }
